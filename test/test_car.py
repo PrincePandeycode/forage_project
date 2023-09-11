@@ -12,6 +12,44 @@ from datetime import datetime
 from engine.capulet_engine import CapuletEngine
 from engine.spindler_battery import SpindlerBattery
 
+import unittest
+from datetime import datetime
+from engine.spindler_battery import SpindlerBattery
+from car_factory import CarFactory
+
+class TestCarFactory(unittest.TestCase):
+    def test_carrigan_tires_need_service(self):
+        # Create a CarFactory with Carrigan tires and worn tire values
+        tire_wear = [0.9, 0.8, 0.95, 0.7]
+        factory = CarFactory("Carrigan", tire_wear)
+
+        # Check if Carrigan tires need service
+        self.assertTrue(factory.needs_tire_service())
+
+    def test_octoprime_tires_need_service(self):
+        # Create a CarFactory with Octoprime tires and worn tire values
+        tire_wear = [0.9, 0.8, 0.95, 0.7]
+        factory = CarFactory("Octoprime", tire_wear)
+
+        # Check if Octoprime tires need service
+        self.assertTrue(factory.needs_tire_service())
+
+if __name__ == '__main__':
+    unittest.main()
+
+class TestSpindlerBattery(unittest.TestCase):
+    def test_spindler_battery_needs_service_after_three_years(self):
+        # Create a SpindlerBattery with a last service date three years ago
+        last_service_date = datetime.now() - timedelta(days=3*365)
+        battery = SpindlerBattery(last_service_date)
+
+        # Check if the battery needs service
+        self.assertTrue(battery.needs_service())
+
+if __name__ == '__main__':
+    unittest.main()
+
+
 class TestCapuletEngine(unittest.TestCase):
     def test_needs_service(self):
         # Create a CapuletEngine instance with last service date and mileage
